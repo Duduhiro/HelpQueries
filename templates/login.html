@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block main %}
+<div class="container py-5">
+    <form action="/login" method="post">
+        <div class="mb-3">
+            <input name="user" placeholder="Usuário" type="text" class="form-control mx-auto w-auto" autocomplete="off" autofocus>
+        </div>
+        <div class="mb-3">
+            <input name="password" placeholder="Senha" type="password" class="form-control mx-auto w-auto">
+        </div>
+        <button class="btn btn-primary" type="submit">Log In</button>
+    </form>
+</div>
+{% endblock %}
