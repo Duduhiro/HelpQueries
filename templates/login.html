@@ -3,15 +3,19 @@
 {% block title %}Login{% endblock %}
 
 {% block main %}
-<div class="container py-5">
-    <form action="/login" method="post">
-        <div class="mb-3">
-            <input name="user" placeholder="Usuário" type="text" class="form-control mx-auto w-auto" autocomplete="off" autofocus>
+<div class="container py-5 text-center">
+    <form action="/login" method="post" style="width: 300px; margin: 0 auto;">
+        <div class="mb-3 form-floating">
+            <input name="user" placeholder="Usuário" type="text" class="form-control" id="floatingInput" autocomplete="off" autofocus>
+            <label for="floatingInput">Usuário</label>
         </div>
-        <div class="mb-3">
-            <input name="password" placeholder="Senha" type="password" class="form-control mx-auto w-auto">
+        <div class="mb-3 form-floating">
+            <input name="password" placeholder="Senha" type="password" class="form-control" id="floatingPassword">
+            <label for="floatingPassword">Senha</label>
         </div>
         <button class="btn btn-primary" type="submit">Log In</button>
     </form>
 </div>
+
+    
 {% endblock %}

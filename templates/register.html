@@ -3,29 +3,30 @@
 {% block title %}Register{% endblock %}
 
 {% block main %}
-<div class="container py-5">
-    <form action="/register" method="post">
-        <div class="mb-3">
-            <label style="margin-left: -150px;">Usuário</label>
-            <input name="user" type="text" class="form-control mx-auto w-auto" autocomplete="off" autofocus>
+<div class="container-md py-5 text-center">
+    <form action="/register" method="post" class="container" style="width: 300px;">
+        <div class="mb-3 form-floating">
+            <input name="user" type="text" class="form-control" id="floatingInput" placeholder="Usuário" autocomplete="off" autofocus>
+            <label for="floatingInput">Usuário</label>
         </div>
-        <div class="mb-3">
-            <label style="margin-left: -165px;">Nome</label>
-            <input name="name" type="text" class="form-control mx-auto w-auto" autocomplete="off">
+        <div class="mb-3 form-floating">
+            <input name="name" type="text" class="form-control" id="floatingInput" placeholder="Nome" autocomplete="off">
+            <label for="floatingInput">Nome</label>
         </div>
-        <div class="mb-3">
-            <label style="margin-left: -80px;">ID Departamento</label>
-            <input name="dep" type="number" class="form-control mx-auto w-auto" autocomplete="off">
+        <div class="mb-3 form-floating">
+            <input name="dep" type="number" class="form-control" placeholder="ID Departamento" id="floatingNumber" autocomplete="off">
+            <label for="floatingNumber">ID Departamento</label>
         </div>
-        <div class="mb-3">
-            <label style="margin-left: -160px;">Senha</label>
-            <input name="password" type="password" class="form-control mx-auto w-auto">
+        <div class="mb-3 form-floating">
+            <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Senha">
+            <label for="floatingPassword">Senha</label>
         </div>
-        <div class="mb-3">
-            <label style="margin-left: -85px;">Confirmar senha</label>
-            <input name="confirm" type="password" class="form-control mx-auto w-auto">
+        <div class="mb-3 form-floating">
+            <input name="confirm" type="password" class="form-control" id="floatingPassword" placeholder="Confirmar Senha">
+            <label for="floatingPassword">Confirmar senha</label>
         </div>
         <button class="btn btn-primary" type="submit">Cadastrar</button>
     </form>
 </div>
+
 {% endblock %}

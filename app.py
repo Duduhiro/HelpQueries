@@ -31,6 +31,11 @@ def index () :
 def meus_chamados () :
     return render_template('meus-chamados.html')
 
+@app.route('/abrir-chamado')
+@login_required
+def abrir_chamado () :
+    return render_template('abrir-chamado.html')
+
 @app.route('/atendimento', methods=['POST', 'GET'])
 @login_required
 def atendimento () :
