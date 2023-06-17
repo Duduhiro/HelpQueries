@@ -21,10 +21,20 @@ def after_request(response):
 @app.route('/')
 @login_required
 def index () :
+    conn = sqlite3.connect('hq.db')
+    db = conn.cursor()
+
     return render_template('index.html')
 
-if __name__ == '__main__' :
-    app.run()
+@app.route('/meus-chamados', methods=['POST', 'GET'])
+@login_required
+def meus_chamados () :
+    return render_template('meus-chamados.html')
+
+@app.route('/atendimento', methods=['POST', 'GET'])
+@login_required
+def atendimento () :
+    return render_template('atendimento.html')
 
 @app.route('/login', methods=['POST', 'GET'])
 def login () :
@@ -40,7 +50,7 @@ def login () :
         if not request.form.get('password') :
             return apology ('Insira uma senha', 404)
         
-        db.execute("SELECT id, nome, senha FROM users WHERE login = ?", (request.form.get('user'),))
+        db.execute("SELECT id, name, password FROM users WHERE username = ?", (request.form.get('user'),))
         user = db.fetchall()
         print(user)
         if not user or not check_password_hash(user[0][2], request.form.get('password')) :
@@ -71,7 +81,7 @@ def register () :
         if not user or not name or not dep or not password or not confirm :
             return apology('Missing fields', 404)
         
-        db.execute("SELECT login FROM users WHERE login = ?", (user,))
+        db.execute("SELECT username FROM users WHERE username = ?", (user,))
         username = db.fetchall()
         if username :
             return apology('User already registered', 404)
@@ -79,7 +89,7 @@ def register () :
         if password != confirm :
             return apology('Password must match', 404)
         password = generate_password_hash(password)
-        db.execute("INSERT INTO users (login, nome, senha, id_departamento) VALUES (?, ?, ?, ?)", (user, name, password, dep))
+        db.execute("INSERT INTO users (name, username, password, id_dep) VALUES (?, ?, ?, ?)", (name, user, password, dep))
         
         conn.commit()
         conn.close()
@@ -93,3 +103,6 @@ def register () :
 def logout() :
     session.clear()
     return redirect('/login')
+
+if __name__ == '__main__' :
+    app.run()

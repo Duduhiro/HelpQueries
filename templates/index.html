@@ -2,8 +2,29 @@
 
 {% block title %}Index{% endblock %}
 
+{% block nav %}
+    <ul class="nav nav-pills">
+        <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="/meus-chamados">Meus Chamados</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/atendimento">Atendimento</a>
+        </li>
+    </ul>
+{% endblock %}
+
+{% block body %}
+    
+{% endblock %}
+
 {% block main %}
 
     <h1>Index</h1>
 
+    <script>
+        var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'))
+        var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
+        return new bootstrap.Dropdown(dropdownToggleEl)
+        })
+    </script>
 {% endblock %}
