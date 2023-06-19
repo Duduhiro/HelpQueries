@@ -8,6 +8,24 @@
     border-bottom: none;
 }
 
-.height-full {
+html, body {
     height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.height-container {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - var(--navbar-height));
+}
+
+.height-flex {
+    flex: 1;
+    display: flex;
+}
+
+.height-overflow {
+    height: 100%;
+    overflow-y: auto; /* Enable vertical scrolling if needed */
 }
