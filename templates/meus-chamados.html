@@ -3,14 +3,7 @@
 {% block title %}Chamados{% endblock %}
 
 {% block nav %}
-    <ul class="nav nav-pills">
-        <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/meus-chamados">Meus Chamados</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/atendimento">Atendimento</a>
-        </li>
-    </ul>
+    
 {% endblock %}
 
 {% block body %}
@@ -18,9 +11,36 @@
 {% endblock %}
 
 {% block main %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2 py-5 nav-border border border-light bg-light">
+                <ul class="nav flex-column">
+                    <li class="nav-item py-2">
+                        <a class="nav-link active" aria-current="page" href="/">Meus chamados</a>
+                    </li>
+                    <li class="nav-item py-2">
+                        <a class="nav-link" href="/atendimento">Atendimento</a>
+                    </li>
+                </ul>
+            </div>
 
-    <form action="/abrir-chamado" method="get">
-        <button class="btn btn-secondary" type="submit">Abrir Chamado</button>
-    </form>
+            <div class="col-10 py-3">
+                <div class="position-relative">
+                    <div class="position-absolute top-0 end-0">
+                        <form action="/abrir-chamado" method="get">
+                            <button class="btn btn-secondary" type="submit">Abrir Chamado</button>
+                        </form>
+                    </div>
+                </div>
+                <ul class="list-group list-group-flush py-5">
+                    <li class="list-group-item py-3">An item</li>
+                    <li class="list-group-item py-3">A second item</li>
+                    <li class="list-group-item py-3">A third item</li>
+                    <li class="list-group-item py-3">A fourth item</li>
+                    <li class="list-group-item py-3">And a fifth one</li>
+                  </ul>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}

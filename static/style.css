@@ -1,0 +1,13 @@
+.border-red {
+    border: 1px dotted red;
+}
+
+.nav-border {
+    border-left: none;
+    border-top: none;
+    border-bottom: none;
+}
+
+.height-full {
+    height: 100%;
+}
