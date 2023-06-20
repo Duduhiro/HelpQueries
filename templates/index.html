@@ -27,9 +27,43 @@
             <div class="col-10 py-4 px-0 height-overflow">
                 <div class="position-relative me-3">
                     <div class="d-flex justify-content-end">
-                        <form action="/abrir-chamado" method="get">
-                            <button class="btn btn-secondary" type="submit">Abrir Chamado</button>
-                        </form>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Abrir Chamado
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Abrir Chamado</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="/abrir-chamado" method="post" class="row g-1" id="abrir-chamado">
+                                    <div class="mb-3 form-floating">
+                                        <input id="floatingInput" type="text" name="resumo" class="form-control" placeholder="Resumo" maxlength="50" required>
+                                        <label for="floatingInput">Resumo</label>
+                                    </div>
+                                    <div class="mb-3 form-floating">
+                                        <textarea name="description" class="form-control" maxlength="500" placeholder="Descrição" id="floatingTextArea" style="resize: none; height: 220px;" required></textarea>
+                                        <label for="floatingTextArea">Descrição</label>
+                                    </div>
+                                    <div class="mb-3 col-md-5">
+                                        <select class="form-select" aria-label="Default select example" required>
+                                            <option selected disabled>Dpto. Destino</option>
+                                            {% for depto in supports %}
+                                            <option value="{{ depto[0] }}">{{ depto[1] }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" id="submitBtn">Enviar</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -97,5 +131,11 @@
                 </ul>
             </div>
         </div>
-    </div> 
+    </div>
+
+    <script>
+        document.getElementById("submitBtn").addEventListener("click", function() {
+            document.getElementById("abrir-chamado").submit();
+        });
+    </script>
 {% endblock %}

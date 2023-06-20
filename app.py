@@ -23,18 +23,10 @@ def after_request(response):
 def index () :
     conn = sqlite3.connect('hq.db')
     db = conn.cursor()
-
-    return render_template('index.html')
-
-@app.route('/meus-chamados', methods=['POST', 'GET'])
-@login_required
-def meus_chamados () :
-    return render_template('meus-chamados.html')
-
-@app.route('/abrir-chamado')
-@login_required
-def abrir_chamado () :
-    return render_template('abrir-chamado.html')
+    db.execute('SELECT id, name FROM department WHERE accept_ticket = "yes"')
+    supports = db.fetchall()
+    print(supports)
+    return render_template('index.html', supports=supports)
 
 @app.route('/atendimento', methods=['POST', 'GET'])
 @login_required
