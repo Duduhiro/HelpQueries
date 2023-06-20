@@ -4,6 +4,7 @@ import sqlite3
 from tools import login_required, apology
 import datetime
 from werkzeug.security import check_password_hash, generate_password_hash
+import datetime
 
 app = Flask(__name__)
 app.config["SESSION_PERMANENT"] = False
@@ -25,8 +26,22 @@ def index () :
     db = conn.cursor()
     db.execute('SELECT id, name FROM department WHERE accept_ticket = "yes"')
     supports = db.fetchall()
-    print(supports)
-    return render_template('index.html', supports=supports)
+    db.execute("SELECT id, description, date, status FROM chamados WHERE id_user = ?", (session['user_id'],))
+    tickets = db.fetchall()
+    return render_template('index.html', supports=supports, tickets=tickets)
+
+@app.route('/abrir-chamado', methods=['POST'])
+@login_required
+def abrir_chamado () :
+    conn = sqlite3.connect('hq.db')
+    db = conn.cursor()
+    ticket_datetime = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+    id_dep = request.form.get('department')
+    description = request.form.get('description')
+    db.execute("INSERT INTO chamados (id_user, id_dep, date, description, status) VALUES (?, ?, ?, ?, 'Aguardando Análise')", (session['user_id'], id_dep, ticket_datetime, description))
+    conn.commit()
+    conn.close()
+    return redirect('/')    
 
 @app.route('/atendimento', methods=['POST', 'GET'])
 @login_required
