@@ -1,0 +1,87 @@
+{% extends "layout.html" %}
+
+{% block title %}Detailed - {{ ticket[0] }} {% endblock %}
+
+{% block main %}
+
+<div class="container-fluid height-container">
+    <div class="row height-flex">
+        <div class="col-2 py-5 nav-border border-end border-grey bg-light height-overflow" style="border-top: 0px;">  
+            <ul class="nav flex-column">
+                <li class="nav-item py-2">
+                    <a class="nav-link active" aria-current="page" href="/">Meus chamados</a>
+                </li>
+                <li class="nav-item py-2">
+                    <a class="nav-link" href="/atendimento">Atendimento</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-10 py-4 px-0 height-overflow">
+            <ul class="list-group list-group-flush py-5">
+                <li class="list-group-item py-0">
+                    <div class="container-fluid px-0">
+                        <div class="row">
+                            <div class="col-1 border-end border-grey">
+                                <p class="fs-6 my-0">Code</p>
+                            </div>
+                            <div class="col-5 border-end border-grey">
+                                <p class="fs-6 my-0">Title</p>
+                            </div>
+                            <div class="col-1 border-end border-grey text-center">
+                                <p class="fs-6 my-0 text-center">Open Date</p>
+                            </div>
+                            <div class="col-1 border-end border-grey text-center">
+                                <p class="fs-6 my-0 text-center">User</p>
+                            </div>
+                            <div class="col-1 border-end border-grey text-center">
+                                <p class="fs-6 my-0 text-center">Dept.</p>
+                            </div>
+                            <div class="col-1 border-end border-grey text-center">
+                                <p class="fs-6 my-0 text-center">Close Date</p>
+                            </div>
+                            <div class="col-1 text-center">
+                                <p class="fs-6 my-0 text-center">Status</p>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item py-3 border-bottom border-grey">
+                    <div class="container-fluid px-0">
+                        <div class="row">
+                            <div class="col-1">
+                                {{ ticket[0][0]}}
+                            </div>
+                            <div class="col-5">
+                                {{ ticket[0][1] }}
+                            </div>
+                            <div class="col-1 text-center">
+                                {{ ticket[0][2] }}
+                            </div>
+                            <div class="col-1 text-center">
+                                {{ session['user_name'] }}
+                            </div>
+                            <div class="col-1 text-center">
+                                {{ departments[ticket[0][3] - 1][1] }}
+                            </div>
+                            <div class="col-1 text-center">
+                                CLOSE DATE
+                            </div>
+                            <div class="col-1 text-center">
+                                {{ ticket[0][4] }}
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="container-fluid">
+                        <h5>Description</h5>
+                        {{ticket[0][5]}}
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

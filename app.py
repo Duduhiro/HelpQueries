@@ -26,9 +26,12 @@ def index () :
     db = conn.cursor()
     db.execute('SELECT id, name FROM department WHERE accept_ticket = "yes"')
     supports = db.fetchall()
-    db.execute("SELECT id, description, date, status FROM chamados WHERE id_user = ?", (session['user_id'],))
+    db.execute("SELECT id, sumary, date, id_dep, status FROM chamados WHERE id_user = ?", (session['user_id'],))
     tickets = db.fetchall()
-    return render_template('index.html', supports=supports, tickets=tickets)
+    tickets = [(t[0], t[1], t[2], int(t[3]), t[4]) for t in tickets]
+    db.execute("SELECT id, name FROM department")
+    departments = db.fetchall()
+    return render_template('index.html', supports=supports, tickets=tickets, departments=departments)
 
 @app.route('/abrir-chamado', methods=['POST'])
 @login_required
@@ -38,10 +41,24 @@ def abrir_chamado () :
     ticket_datetime = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
     id_dep = request.form.get('department')
     description = request.form.get('description')
-    db.execute("INSERT INTO chamados (id_user, id_dep, date, description, status) VALUES (?, ?, ?, ?, 'Aguardando Análise')", (session['user_id'], id_dep, ticket_datetime, description))
+    sumary = request.form.get('resumo')
+    db.execute("INSERT INTO chamados (id_user, id_dep, date, description, status, sumary) VALUES (?, ?, ?, ?, 'Aguardando Análise', ?)", (session['user_id'], id_dep, ticket_datetime, description, sumary))
     conn.commit()
     conn.close()
     return redirect('/')    
+
+@app.route('/more-info', methods=['POST'])
+@login_required
+def more_info () :
+    conn = sqlite3.connect('hq.db')
+    db = conn.cursor()
+    ticket_id = request.form.get('ticket_id')
+    db.execute("SELECT id, sumary, date, id_dep, status, description FROM chamados WHERE id = ?", (ticket_id,))
+    tickets = db.fetchall()
+    tickets = [(t[0], t[1], t[2], int(t[3]), t[4], t[5]) for t in tickets]
+    db.execute("SELECT id, name FROM department")
+    departments = db.fetchall()
+    return render_template('more_info.html', ticket=tickets, departments=departments)
 
 @app.route('/atendimento', methods=['POST', 'GET'])
 @login_required
@@ -64,7 +81,6 @@ def login () :
         
         db.execute("SELECT id, name, password FROM users WHERE username = ?", (request.form.get('user'),))
         user = db.fetchall()
-        print(user)
         if not user or not check_password_hash(user[0][2], request.form.get('password')) :
             return apology('Senha ou usuário incorreto')
         
